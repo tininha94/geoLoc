@@ -8,4 +8,17 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    loginIcon: {
+      alignItems: 'center',
+      padding: 5,
+    },
+    button: {
+      alignItems: 'center',
+      backgroundColor: '#DDDDDD',
+      padding: 10,
+      width: 300,
+      marginTop: 16,
+    },
   });
+
+  export {styles}
