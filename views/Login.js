@@ -5,7 +5,7 @@ import {styles} from '../assets/CSS/CSS';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-export default function Login() {
+export default function Login({navigation}) {
 
   const [display, setDisplay] = useState('none')
 
@@ -25,6 +25,9 @@ export default function Login() {
         <TextInput placeholder='Password' secureTextEntry={true}/>
         <TouchableOpacity style={styles.button} onPress={() => setDisplay('flex')}>
           <Text>Sign In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text>Dont have an account? Sign Up</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

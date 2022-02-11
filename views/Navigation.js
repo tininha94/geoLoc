@@ -3,7 +3,7 @@ import { TouchableOpacity,Button, Text, View } from 'react-native';
 import styles from '../assets/CSS/CSS';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Home, Login, RestrictArea} from './index';
+import {Home, Login, RestrictArea, Register} from './index';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +25,7 @@ export default function Navigation() {
             })}
           />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Area Restrita" component={RestrictArea} />
       </Stack.Navigator>
     </NavigationContainer>

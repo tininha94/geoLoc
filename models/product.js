@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Product.BelongsTo(models.Traking)
+      Product.belongsTo(models.Traking);
     }
   }
   Product.init({
@@ -21,5 +21,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Product',
   });
-  return Product;
+  return Product;s
 };
