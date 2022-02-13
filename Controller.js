@@ -14,8 +14,28 @@ let traking=models.Traking;
 let product=models.Product;
 
 app.post('/register', async(req,res) =>{
+      let response = await user.findOne({
+            where: {login: req.body.login}
+      });
+      
+      if (response != null){
+            res.send(JSON.stringify('error'))
+      }else{
+            await user.create({ name: req.body.name, login: req.body.login, password: req.body.password });
+            res.send(JSON.stringify('success'))
+      };
+});
 
-      console.log(response)
+app.post('/login', async(req,res) =>{
+      let response = await user.findOne({
+            where: {login: req.body.login, password: req.body.password}
+      });
+
+      if (response == null){
+            res.send(JSON.stringify('error'))
+      }else{
+            res.send(JSON.stringify('success'))
+      };
 });
 
 let port=process.env.PORT || 3000;
