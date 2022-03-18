@@ -1,11 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity,Button, Text, View } from 'react-native';
-import styles from '../assets/CSS/CSS';
+import 'react-native-gesture-handler';
+import { TouchableOpacity} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Home, Login, Register} from './index';
+import { Home, Login, Register, EditTrackingCode, RegisterTrackingCode } from './index';
+import Menu from './restrictArea/Menu';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import RestrictArea from './restrictArea/RestrictArea';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,17 +16,23 @@ export default function Navigation() {
             name="Home" 
             component={Home}
             options={({ navigation }) => ({
-              headerTitle: "GEOLOC",
+              headerStyle: {
+                backgroundColor: '#ed8777'
+              },
+              headerTintColor: 'white',
+              headerTitle: "",
               headerRight: () => (
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Icon name="user" size={30} color="#999" />
+                    <Icon name="user" size={30} color="white" />
                 </TouchableOpacity>
               )
             })}
           />
         <Stack.Screen name="Login" options={{headerShown:false}} component={Login} />
         <Stack.Screen name="Register" options={{ headerShown: false }} component={Register} />
-        <Stack.Screen name="RestrictArea" component={RestrictArea} />
+        <Stack.Screen name="Menu" options={{ headerShown: false }} component={Menu} />
+        <Stack.Screen name="RegisterTrackingCode" options={{ headerShown: false }} component={RegisterTrackingCode} />
+        <Stack.Screen name="EditTrackingCode" options={{ headerShown: false }} component={EditTrackingCode} />
       </Stack.Navigator>
     </NavigationContainer>
   );

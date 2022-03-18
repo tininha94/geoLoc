@@ -26,15 +26,104 @@ app.post('/register', async(req,res) =>{
       };
 });
 
-app.post('/login', async(req,res) =>{
-      let response = await user.findOne({
-            where: {login: req.body.login, password: req.body.password}
+app.post('/registerCode', async(req,res) =>{
+
+      await traking.create({ code: req.body.code, userId: req.body.userId, currentLocal: 'São José dos Campos', deadline: req.body.date, finalLocal: req.body.destiny });
+
+});
+
+app.post('/validateLogin', async(req,res) =>{
+      let userId = await user.findOne({
+            where: {login: req.body.login, password: req.body.password},
+            attributes: ['id'],     
       });
 
-      if (response == null){
-            res.send(JSON.stringify('error'))
+      res.send(JSON.stringify(userId))
+});
+ 
+app.post('/getUsers', async(req,res) =>{
+      let response = await user.findAll({
+            attributes: ['id', 'name', 'login', 'createdAt']
+      });
+      
+      res.send(JSON.stringify(response))
+});
+ 
+app.post('/getUserById', async(req,res) =>{
+      let response = await user.findOne({
+            where: { id: req.body.id }
+      });
+
+      res.send(JSON.stringify(response))
+});
+ 
+app.post('/updateUserData', async(req,res) =>{
+      await user.update({ name: req.body.name, password: req.body.password }, {
+            where: {
+                  id: req.body.id
+            }
+      });
+
+      res.send(JSON.stringify('success'))
+});
+ 
+app.post('/getCodesList', async(req,res) =>{
+ 
+      if(req.body.admin == 1){
+            let response = await traking.findAll({
+                  attributes: ['id','code', 'finalLocal', 'userId', 'currentLocal', 'deadline'],     
+                  order:[['deadline','ASC']],
+                  include: [user],
+            });
+
+            res.send(JSON.stringify(response))
       }else{
+            let response = await traking.findAll({
+                  attributes: ['id','code', 'finalLocal', 'userId', 'currentLocal', 'deadline'],
+                  order: [['deadline', 'ASC']],
+                  where: { userId: req.body.userId},
+                  include: [user],
+            });
+
+            res.send(JSON.stringify(response))
+      }  
+});
+ 
+app.post('/getCodeDataById', async(req,res) =>{
+ 
+      let response = await traking.findOne({
+            where: { id: req.body.id },
+            include: [user],     
+      });
+
+      res.send(JSON.stringify(response))
+      
+});
+ 
+app.post('/getCodeDataByCode', async(req,res) =>{
+ 
+      let response = await traking.findOne({
+            where: { code: req.body.code },
+            include: [user],     
+      });
+
+      if (response == null) {
+            res.send(JSON.stringify('not Found'))
+      } else {
+            res.send(JSON.stringify(response))
+      };
+});
+
+
+app.post('/checkIfCodeAlreadyExists', async(req,res) =>{
+      let response = await traking.findOne({
+            where: { code: req.body.code }
+      });
+
+      if (response == null) {
             res.send(JSON.stringify('success'))
+      } else {
+            res.send(JSON.stringify('error'))
       };
 });
 

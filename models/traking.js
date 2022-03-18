@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
   Traking.init({
     userId: DataTypes.INTEGER,
     code: DataTypes.STRING,
-    lastLocal: DataTypes.STRING,
-    lastDt: DataTypes.DATE
+    currentLocal: DataTypes.STRING,
+    deadline: DataTypes.DATE,
+    finalLocal: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Traking',

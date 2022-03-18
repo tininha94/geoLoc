@@ -14,7 +14,7 @@ export default function Register({ navigation }) {
       const customInputStyle = inavlid ? styles.login__input_err : styles.login__input
 
       async function sendForm(){
-            let response = await fetch('http://192.168.0.106:3000/register',{
+            let response = await fetch('http://192.168.0.104:3000/register',{
                   method: 'POST',
                   headers: {
                         Accept: 'application/json',
